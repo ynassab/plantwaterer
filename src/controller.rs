@@ -23,15 +23,15 @@ pub fn run_cycle(
     let mut state = load_state();
 
     actuators.stop_all();  // Always first
-
-    if matches!(state, CycleState::Idle | CycleState::MixingStarted) {
+    
+    if state.can_start_mixing() {
         save_state(&CycleState::MixingStarted)?;
         actuators.mixing_pump.run_for(mixing_time)?;
         save_state(&CycleState::MixingCompleted)?;
         state = CycleState::MixingCompleted;
     }
 
-    if matches!(state, CycleState::MixingCompleted | CycleState::WateringStarted) {
+    if state.can_start_watering() {
         save_state(&CycleState::WateringStarted)?;
         actuators.water_pump.run_for(watering_time)?;
         save_state(&CycleState::Completed)?;

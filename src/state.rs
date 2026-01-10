@@ -13,6 +13,25 @@ pub enum CycleState {
     Completed,
 }
 
+impl CycleState {
+    pub fn can_start_mixing(&self) -> bool {
+        matches!(
+            self,
+            CycleState::Idle
+                | CycleState::Completed
+                | CycleState::MixingStarted
+        )
+    }
+
+    pub fn can_start_watering(&self) -> bool {
+        matches!(
+            self,
+            CycleState::MixingCompleted
+                | CycleState::WateringStarted
+        )
+    }
+}
+
 pub fn state_file_path() -> PathBuf {
     Path::new(STATE_DIR_PATH).join(STATE_FILE_NAME)
 }
