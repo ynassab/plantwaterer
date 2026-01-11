@@ -1,5 +1,6 @@
-pub const MIXING_PUMP_PIN: u8 = 17;
-pub const WATER_PUMP_PIN: u8 = 27;
+// BCM pin numbering
+pub const MIXING_PUMP_PIN: u8 = 23;  // GPIO 23 = physical pin 16
+pub const WATER_PUMP_PIN: u8 = 12;  // GPIO 12 = physical pin 32
 
 pub const MIXING_TIME_SECS: u64 = 30;
 pub const WATERING_TIME_SECS: u64 = 12;

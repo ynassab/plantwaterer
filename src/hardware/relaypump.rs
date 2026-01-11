@@ -9,7 +9,7 @@ pub struct RelayPump {
 impl RelayPump {
     pub fn new(pin_number: u8) -> Self {
         Self {
-            relay: Relay::new(pin_number),
+            relay: Relay::new(pin_number).unwrap(),
         }
     }
 }
