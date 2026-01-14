@@ -11,9 +11,16 @@ use crate::errors::StdError;
 
 use std::time::Duration;
 
-fn main() -> Result<(), StdError> {
-    // env_logger::init();
+fn main() {
+    env_logger::init();
 
+    if let Err(e) = real_main() {
+        log::error!("Fatal error: {}", e);
+        std::process::exit(1);
+    }
+}
+
+fn real_main() -> Result<(), StdError> {
     let shutdown = ShutdownFlag::new();
     signals::install_signal_handler(shutdown.clone());
 

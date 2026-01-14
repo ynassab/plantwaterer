@@ -16,10 +16,16 @@ impl RelayPump {
 
 impl Pump for RelayPump {
     fn start(&mut self) -> Result<(), StdError> {
-        self.relay.set_on()
+        self.relay.set_on().map_err(|e| {
+            log::error!("Failed to start pump: {}", e);
+            e
+        })
     }
 
     fn stop(&mut self) -> Result<(), StdError> {
-        self.relay.set_off()
+        self.relay.set_off().map_err(|e| {
+            log::error!("Failed to stop pump: {}", e);
+            e
+        })
     }
 }

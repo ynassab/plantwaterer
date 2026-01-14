@@ -25,15 +25,29 @@ pub fn run_cycle(
     actuators.stop_all();  // Always first
     
     if state.can_start_mixing() {
+        log::info!("Starting mixing");
         save_state(&CycleState::MixingStarted)?;
-        actuators.mixing_pump.run_for(mixing_time)?;
+        
+        if let Err(e) = actuators.mixing_pump.run_for(mixing_time) {
+            log::error!("Mixing step failed: {}", e);
+            return Err(e.into());
+        }
+        
         save_state(&CycleState::MixingCompleted)?;
+        log::info!("Completed mixing");
         state = CycleState::MixingCompleted;
     }
 
     if state.can_start_watering() {
+        log::info!("Started watering");
         save_state(&CycleState::WateringStarted)?;
-        actuators.water_pump.run_for(watering_time)?;
+        
+        if let Err(e) = actuators.water_pump.run_for(watering_time) {
+            log::error!("Watering step failed: {}", e);
+            return Err(e.into());
+        }
+        
+        log::info!("Completed watering");
         save_state(&CycleState::Completed)?;
     }
 

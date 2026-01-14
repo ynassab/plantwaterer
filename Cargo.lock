@@ -165,6 +165,7 @@ name = "plantwaterer"
 version = "0.1.0"
 dependencies = [
  "env_logger",
+ "log",
  "rppal",
  "serde",
  "serde_json",

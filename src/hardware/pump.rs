@@ -15,6 +15,7 @@ pub trait Pump {
 
         for _ in 0..duration.as_secs() {
             if shutdown.is_requested() {
+                log::warn!("Shutdown requested; stopping pumps");
                 self.stop()?;
                 return Err(StdError::from("Shutdown requested"));
             }

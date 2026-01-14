@@ -14,6 +14,7 @@ impl Actuators {
     }
 
     pub fn stop_all(&mut self) {
+        log::info!("Stopping all actuators");
         let _ = self.mixing_pump.stop();
         let _ = self.water_pump.stop();
     }
