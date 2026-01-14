@@ -1,0 +1,8 @@
+[Unit]
+Description=Plant watering cycle
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/plantwaterer
+Environment=RUST_LOG=info
+
